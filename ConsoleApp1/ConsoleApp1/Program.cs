@@ -23,16 +23,17 @@ namespace ConsoleApp1
         static void StartSequence()
         {
             Console.WriteLine("Please enter a number greater than zero");
+            try { 
             int size = Convert.ToInt32(Console.ReadLine());
             int[] arr = new int[size];
             arr = Populate(arr);
             int sum = GetSum(arr);
             int product = GetProduct(arr, sum);
             decimal quotient = GetQuotient(product);
-
+            
 
             Console.WriteLine("Your array size is: " + size);
-            Console.Write("The numbers in the array are: ");
+            Console.WriteLine("The numbers in the array are: ");
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Write(arr[i] + " ");
@@ -41,6 +42,15 @@ namespace ConsoleApp1
             Console.WriteLine(sum + " " + "*" + " " + product / sum + " = " + product);
             int number = (int)quotient;
             Console.WriteLine(product + " " + "/" + " " + (product / number) + " = " + quotient);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Something went wrong! " + e.Message);
+            }
+            catch (OverflowException e)
+            {
+                Console.WriteLine("Something went wrong! " + e.Message);
+            }
         }
 
         static int[] Populate(int[] arr)
@@ -74,13 +84,13 @@ namespace ConsoleApp1
             int product = 0;
             try { 
             Console.WriteLine("select a random number between 1 and" + arr.Length);
-            int randomnumber = Convert.ToInt32(Console.ReadLine());
+            int userInputnumber = Convert.ToInt32(Console.ReadLine());
             
-            product = sum * randomnumber;
+            product = sum * userInputnumber;
                 }
-            catch
+            catch (IndexOutOfRangeException e)
             {
-                Console.WriteLine("Something went wrong");
+                Console.WriteLine("IndexOutOfRange" + e.Message);
             }
             return product;
 
